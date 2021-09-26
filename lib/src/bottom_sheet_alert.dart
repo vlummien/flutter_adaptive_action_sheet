@@ -174,7 +174,10 @@ Future<T?> _showMaterialBottomSheet<T>(
               ],
               ...actions.map<Widget>((action) {
                 return InkWell(
-                  onTap: action.onPressed,
+                  onTap: () {
+                    action.onPressed();
+                    Navigator.of(coxt).pop();
+                    },
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
@@ -204,11 +207,7 @@ Future<T?> _showMaterialBottomSheet<T>(
               if (cancelAction != null)
                 InkWell(
                   onTap:
-                      (){
-                        cancelAction.onPressed();
-                        Navigator.of(coxt).pop();
-                       }
-                        ?? () => Navigator.of(coxt).pop(),
+                      cancelAction.onPressed ?? () => Navigator.of(coxt).pop(),
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
